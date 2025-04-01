@@ -399,4 +399,8 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# Pulumi
 .pulumi/
+
+# Publish directory
+dist/

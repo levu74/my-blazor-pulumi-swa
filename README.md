@@ -4,6 +4,11 @@ This repository contains a sample Pulumi project that demonstrates how to deploy
 
 ## Prerequisites
 
+- .NET SDK 9.0.200 or compatible
+- Azure subscription
+- Pulumi CLI
+
+
 ### Install Pulumi
 
 Make sure you have Pulumi installed. You can install it by following the instructions in the [Pulumi installation guide](https://www.pulumi.com/docs/get-started/install/).
