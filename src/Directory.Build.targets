@@ -1,0 +1,19 @@
+<Project>
+  <!-- Common build targets and overrides -->
+  <PropertyGroup>
+    <!-- Ensure deterministic builds in CI environments -->
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <!-- Add common targets here -->
+  <Target Name="VerifyVersion" BeforeTargets="Build">
+    <Message Importance="high" Text="Building with .NET SDK $(NETCoreSdkVersion)" />
+  </Target>
+  
+  <!-- Example of conditional target -->
+  <Target Name="AddOptionalAnalyzers" BeforeTargets="CoreCompile" Condition="'$(Configuration)' == 'Debug'">
+    <ItemGroup>
+      <!-- Add debug-specific analyzers here -->
+    </ItemGroup>
+  </Target>
+</Project>
