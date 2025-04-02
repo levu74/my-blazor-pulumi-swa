@@ -9,7 +9,7 @@
   <Target Name="VerifyVersion" BeforeTargets="Build">
     <Message Importance="high" Text="Building with .NET SDK $(NETCoreSdkVersion)" />
   </Target>
-  
+
   <!-- Example of conditional target -->
   <Target Name="AddOptionalAnalyzers" BeforeTargets="CoreCompile" Condition="'$(Configuration)' == 'Debug'">
     <ItemGroup>

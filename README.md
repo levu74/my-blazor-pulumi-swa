@@ -8,6 +8,27 @@ This repository contains a sample Pulumi project that demonstrates how to deploy
 - Azure subscription
 - Pulumi CLI
 
+## Development with DevContainer
+
+This project supports development using Visual Studio Code DevContainers, which provides a consistent development environment for all contributors.
+
+### Prerequisites for DevContainer
+
+- [Docker](https://www.docker.com/products/docker-desktop)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Remote - Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+### Starting the DevContainer
+
+1. Clone this repository
+2. Open the repository in Visual Studio Code
+3. When prompted, click "Reopen in Container" or run the "Remote-Containers: Reopen in Container" command from the command palette
+4. The container will build and start, which may take a few minutes the first time
+5. Once the container is ready, you'll have a fully configured development environment
+
+## Manual Setup
+
+If you prefer not to use DevContainers, follow these steps:
 
 ### Install Pulumi
 
@@ -17,7 +38,6 @@ Make sure you have Pulumi installed. You can install it by following the instruc
 ## Project Setup
 
 ### Infrastructure
-
 
 
 ### Static Web App using Blazor

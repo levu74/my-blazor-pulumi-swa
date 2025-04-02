@@ -1,0 +1,50 @@
+{
+  "name": "Blazor Pulumi Development",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/python": {
+      "version": "3.11",
+      "installPip:": true,
+      "installPipx": true
+    },
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/devcontainers-contrib/features/pulumi:1": {},
+    "ghcr.io/devcontainers/features/powershell:1": {},
+    "ghcr.io/devcontainers-extra/features/pre-commit": {
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "ms-azuretools.vscode-azurestaticwebapps",
+        "pulumi.pulumi-lsp-client",
+        "ms-vscode.azurecli",
+        "ms-azuretools.vscode-bicep",
+        "esbenp.prettier-vscode",
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode",
+        "github.copilot",
+        "github.copilot-chat"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "github.copilot.enable": {
+          "*": true,
+          "plaintext": true,
+          "markdown": true,
+          "csharp": true
+        },
+        "editor.inlineSuggest.enabled": true,
+        "github.copilot.advanced": {
+          "inlineSuggestCount": 3
+        }
+      }
+    }
+  },
+  "remoteUser": "vscode",
+  "forwardPorts": [5000, 5001],
+  "postCreateCommand": ". .devcontainer/post-create.sh"
+}
