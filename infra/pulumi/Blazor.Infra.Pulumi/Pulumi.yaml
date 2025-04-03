@@ -1,0 +1,7 @@
+name: blazor-swa-csharp
+description: Provision Azure Static Web Apps for deploying Blazor application
+runtime: dotnet
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: azure-csharp

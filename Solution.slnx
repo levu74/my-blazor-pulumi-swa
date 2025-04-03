@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/Blazor.WebAsm.Demo/Blazor.WebAsm.Demo.csproj" />
+  <Project Path="infra/pulumi/Blazor.Infra.Pulumi/Blazor.Infra.Pulumi.csproj" />
+</Solution>
