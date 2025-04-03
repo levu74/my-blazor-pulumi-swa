@@ -404,3 +404,6 @@ FodyWeavers.xsd
 
 # Publish directory
 dist/
+
+# .env files
+.env

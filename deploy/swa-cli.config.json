@@ -1,0 +1,14 @@
+{
+  "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+  "configurations": {
+    "blazor-swa": {
+      "appLocation": "../src/Blazor.WebAsm.Demo",
+      "outputLocation": "../dist/Blazor.WebAsm.Demo/wwwroot"
+    },
+    "blazor-swa-build-cmd": {
+      "appLocation": "../src/Blazor.WebAsm.Demo",
+      "outputLocation": "../dist/Blazor.WebAsm.Demo/wwwroot",
+      "appBuildCommand": "dotnet publish ${appLocation} -c Release -o ../../dist/Blazor.WebAsm.Demo/wwwroot"
+    }
+  }
+}
