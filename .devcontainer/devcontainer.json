@@ -9,6 +9,7 @@
       "installPip:": true,
       "installPipx": true
     },
+    "ghcr.io/mikaello/devcontainer-features/modern-shell-utils:1": {},
     "ghcr.io/devcontainers/features/azure-cli:1": {},
     "ghcr.io/devcontainers-contrib/features/pulumi:1": {},
     "ghcr.io/devcontainers/features/powershell:1": {},
@@ -19,6 +20,7 @@
     "vscode": {
       "extensions": [
         "ms-dotnettools.csharp",
+        "ms-dotnettools.csdevkit",
         "ms-azuretools.vscode-azurestaticwebapps",
         "pulumi.pulumi-lsp-client",
         "ms-vscode.azurecli",
