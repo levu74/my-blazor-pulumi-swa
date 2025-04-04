@@ -7,12 +7,15 @@ namespace Blazor.Infra.Pulumi
 {
     public class StaticWebAppStack : Stack
     {
-        [Output("primaryStorageKey")]
-        public Output<string> PrimaryStorageKey { get; private set; }
 
         [Output("staticWebAppUrl")]
         public Output<string> StaticWebAppUrl { get; private set; }
 
+        [Output("keyVaultName")]
+        public Output<string> KeyVaultName { get; private set; }
+
+        [Output("swaDeploymentTokenSecretName")]
+        public Output<string> SwaDeploymentTokenSecretName { get; private set; }
 
         public StaticWebAppStack()
         {
@@ -28,39 +31,16 @@ namespace Blazor.Infra.Pulumi
             var resourceGroupName = $"rg-{fullStackName}";
 
             // Create an Azure Resource Group
-            var resourceGroup = new Az.Resources.ResourceGroup(resourceGroupName, new(){
+            var resourceGroup = new Az.Resources.ResourceGroup(resourceGroupName, new()
+            {
                 ResourceGroupName = resourceGroupName
             });
 
-            // Create an Azure resource (Storage Account)
-            var storageAccountName = CreateStorageAccountName("sa", projectName, stackName);
-
-            var storageAccount = new Az.Storage.StorageAccount(storageAccountName, new()
-            {
-                ResourceGroupName = resourceGroup.Name,
-                AccountName = storageAccountName,
-                Sku = new Az.Storage.Inputs.SkuArgs
-                {
-                    Name = Az.Storage.SkuName.Standard_LRS
-                },
-                Kind = Az.Storage.Kind.StorageV2
-            });
-
-            var storageAccountKeys = Az.Storage.ListStorageAccountKeys.Invoke(new()
-            {
-                ResourceGroupName = resourceGroup.Name,
-                AccountName = storageAccount.Name
-            });
-
-            PrimaryStorageKey = storageAccountKeys.Apply(accountKeys =>
-            {
-                var firstKey = accountKeys.Keys[0].Value;
-                return Output.CreateSecret(firstKey);
-            });
 
             // Create an Azure Static Web App
             var staticWebAppName = $"swa-{fullStackName}";
-            var staticWebApp = new Az.Web.StaticSite(staticWebAppName, new (){
+            var staticWebApp = new Az.Web.StaticSite(staticWebAppName, new()
+            {
                 ResourceGroupName = resourceGroup.Name,
                 Name = staticWebAppName,
                 Location = resourceGroup.Location,
@@ -81,14 +61,11 @@ namespace Blazor.Infra.Pulumi
                 });
             });
 
-            var deploymentToken = staticWebAppSecrets.Apply(secrets => {
+            var deploymentToken = staticWebAppSecrets.Apply(secrets =>
+            {
                 return secrets.Properties.Where(x => x.Key == "apiKey").FirstOrDefault().Value;
             });
 
-            StaticWebAppUrl = staticWebApp.DefaultHostname.Apply(hostname =>
-            {
-                return Output.Create(hostname);
-            });
 
             // Create key vault and store deployment tokens in this keyvault
             var keyVaultName = $"kv-{fullStackName}";
@@ -116,7 +93,7 @@ namespace Blazor.Infra.Pulumi
             {
                 ResourceGroupName = resourceGroup.Name,
                 VaultName = keyVault.Name,
-                SecretName = "SWA-Deployment-Token",
+                SecretName = "swaDeploymentToken",
 
                 Properties = new Az.KeyVault.Inputs.SecretPropertiesArgs
                 {
@@ -125,39 +102,11 @@ namespace Blazor.Infra.Pulumi
                 }
             });
 
-            // Create a secret in the key vault to store Storage Account Primary Key
-            var storageAccountKeySecret = new Az.KeyVault.Secret("storageAccountKeySecret", new()
-            {
-                ResourceGroupName = resourceGroup.Name,
-                VaultName = keyVault.Name,
-                SecretName = "Storage-Account-Primary-Key",
-
-                Properties = new Az.KeyVault.Inputs.SecretPropertiesArgs
-                {
-                    Value = PrimaryStorageKey,
-                    ContentType = "text/plain",
-                }
-            });
-
+            // Output
+            StaticWebAppUrl = staticWebApp.DefaultHostname.Apply(hostname => Output.Create(hostname));
+            KeyVaultName = keyVault.Name.Apply(name => Output.Create(name));
+            SwaDeploymentTokenSecretName = staticWebAppTokenSecret.Name.Apply(secretName =>Output.Create(secretName));
         }
 
-        // Helper method to create a valid storage account name
-        private static string CreateStorageAccountName(string prefix, string projectName, string stackName)
-        {
-            int maxStorageNameLength = 16;
-            var availableLength = maxStorageNameLength - prefix.Length - stackName.Length;
-
-            var middlePart = "";
-            if (availableLength > 0)
-            {
-                middlePart = projectName.ToLowerInvariant().Replace("-", "");
-                if (middlePart.Length > availableLength)
-                {
-                    middlePart = middlePart.Substring(0, availableLength);
-                }
-            }
-
-            return $"{prefix}{middlePart}{stackName}".ToLowerInvariant();
-        }
     }
 }
