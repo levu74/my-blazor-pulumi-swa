@@ -7,8 +7,6 @@ trigger:
     include:
       - "**/*"
 
-
-
 variables:
   - name: solution
     value: src/BlazorApp.slnx
@@ -97,18 +95,18 @@ stages:
           #   displayName: Deploy Infrastructure
           - task: Pulumi@1
             inputs:
-              azureSubscription:  $(ado.azureServiceConnection)
+              azureSubscription: $(ado.azureServiceConnection)
               command: up
               cwd: infra/pulumi/Blazor.Infra.Pulumi
               stack: $(environment)
               args: "--yes"
-
 
   - stage: Deploy
     displayName: "Deploy Blazor App"
     dependsOn:
       - Infrastructure
       - BuildBlazorApp
+    condition: ne(variables['ado.azureStaticWebAppToken'], '')
     jobs:
       - job: DeployBlazorApp
         displayName: "Deploy Blazor App"
@@ -119,10 +117,11 @@ stages:
           # Download the published Blazor app artifact
           - download: current
             artifact: BlazorApp
-            target: "$(Pipeline.Workspace)/BlazorApp"
-            displayName: Download Blazor App Artifact
-          # List the contents of the downloaded artifact
-          - script: |
-              echo "Contents of the downloaded artifact:"
-              ls -R $(Pipeline.Workspace)/BlazorApp
-            displayName: "List Artifact Contents"
+            displayName: "Download Blazor App Artifact"
+
+          - task: AzureStaticWebApp@0
+            inputs:
+              azure_static_web_apps_api_token: $(ado.azureStaticWebAppToken)
+              output_location: "$(Pipeline.Workspace)/BlazorApp/wwwroot"
+              skip_app_build: true
+            displayName: "Deploy to Static Web Apps"
