@@ -28,6 +28,7 @@ pool:
 stages:
   - stage: BuildBlazorApp
     displayName: "Build Blazor App"
+    dependsOn: []
     jobs:
       - job: BuildBlazorApp
         displayName: "Build Blazor App"
@@ -53,6 +54,7 @@ stages:
 
   - stage: Infrastructure
     displayName: "Deploy Infrastructure"
+    dependsOn: []
     jobs:
       - job: PulumiUp
         displayName: "Deploy Infrastructure"
@@ -62,36 +64,44 @@ stages:
               packageType: "sdk"
               version: "9.x"
               installationPath: "$(Agent.ToolsDirectory)/dotnet"
-          - script: |
-              curl -fsSL https://get.pulumi.com | sh
-              echo "##vso[task.prependpath]$HOME/.pulumi/bin"
-              export PATH=$PATH:$HOME/.pulumi/bin
-            displayName: "Setup Pulumi"
-          - script: |
-              export PATH=$PATH:$HOME/.pulumi/bin
-              pulumi login
-            env:
-              PULUMI_ACCESS_TOKEN: $(pulumiAccessToken)
-            displayName: "Login to Pulumi"
+          # - script: |
+          #     curl -fsSL https://get.pulumi.com | sh
+          #     echo "##vso[task.prependpath]$HOME/.pulumi/bin"
+          #     export PATH=$PATH:$HOME/.pulumi/bin
+          #   displayName: "Setup Pulumi"
+          # - script: |
+          #     export PATH=$PATH:$HOME/.pulumi/bin
+          #     pulumi login
+          #   env:
+          #     PULUMI_ACCESS_TOKEN: $(pulumiAccessToken)
+          #   displayName: "Login to Pulumi"
 
-          - task: AzureCLI@2
+          # - task: AzureCLI@2
+          #   inputs:
+          #     azureSubscription: $(ado.azureServiceConnection)
+          #     scriptType: "bash"
+          #     scriptLocation: "inlineScript"
+          #     inlineScript: |
+          #       export ARM_USE_OIDC="true"
+          #       export ARM_SUBSCRIPTION_ID="$(az account show --query id --output tsv | cut -d'/' -f3)"
+          #       export ARM_CLIENT_ID=${servicePrincipalId}
+          #       export ARM_TENANT_ID=${tenantId}
+          #       export AZURE_CLIENT_ID=${servicePrincipalId}
+          #       export AZURE_FEDERATED_TOKEN=${idToken}
+          #       export AZURE_TENANT_ID=${tenantId}
+          #       export ARM_OIDC
+
+          #       pulumi up --stack $(environment) --yes
+          #     workingDirectory: infra/pulumi/Blazor.Infra.Pulumi
+          #     addSpnToEnvironment: true
+          #   displayName: Deploy Infrastructure
+          - task: Pulumi@1
             inputs:
-              azureSubscription: $(ado.azureServiceConnection)
-              scriptType: "bash"
-              scriptLocation: "inlineScript"
-              inlineScript: |
-                export ARM_USE_OIDC="true"
-                export ARM_SUBSCRIPTION_ID="$(az account show --query id --output tsv | cut -d'/' -f3)"
-                export ARM_CLIENT_ID=${servicePrincipalId}
-                export ARM_TENANT_ID=${tenantId}
-                export AZURE_CLIENT_ID=${servicePrincipalId}
-                export AZURE_FEDERATED_TOKEN=${idToken}
-                export AZURE_TENANT_ID=${tenantId}
-
-                pulumi up --stack $(environment) --yes
-              workingDirectory: infra/pulumi/Blazor.Infra.Pulumi
-              addSpnToEnvironment: true
-            displayName: Deploy Infrastructure
+              azureSubscription:  $(ado.azureServiceConnection)
+              command: up
+              cwd: infra/pulumi/Blazor.Infra.Pulumi
+              stack: $(environment)
+              args: "--yes"
 
 
   - stage: Deploy
