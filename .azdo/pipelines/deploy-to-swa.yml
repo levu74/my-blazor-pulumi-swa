@@ -1,0 +1,109 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - "**/*"
+
+
+
+variables:
+  - name: solution
+    value: src/BlazorApp.slnx
+  - name: buildPlatform
+    value: "Any CPU"
+  - name: buildConfiguration
+    value: "Release"
+  - name: publishLocation
+    value: "$(Build.ArtifactStagingDirectory)/publish"
+
+  - group: my-blazor-pulumi-swa.deploy-to-swa
+
+pool:
+  name: $(ado.poolName)
+  vmImage: $(ado.vmImage)
+
+stages:
+  - stage: BuildBlazorApp
+    displayName: "Build Blazor App"
+    jobs:
+      - job: BuildBlazorApp
+        displayName: "Build Blazor App"
+        steps:
+          - task: UseDotNet@2
+            inputs:
+              packageType: "sdk"
+              version: "9.x"
+              installationPath: "$(Agent.ToolsDirectory)/dotnet"
+
+          - script: |
+              dotnet build $(solution) --configuration $(buildConfiguration)
+            displayName: "Build Solution"
+
+          - script: |
+              dotnet publish $(solution) --configuration $(buildConfiguration) --output $(publishLocation)
+            displayName: "Publish Blazor App"
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: "$(publishLocation)"
+              ArtifactName: "BlazorApp"
+              publishLocation: "Container"
+
+  - stage: Infrastructure
+    displayName: "Deploy Infrastructure"
+    jobs:
+      - job: PulumiUp
+        displayName: "Deploy Infrastructure"
+        steps:
+          - task: UseDotNet@2
+            inputs:
+              packageType: "sdk"
+              version: "9.x"
+              installationPath: "$(Agent.ToolsDirectory)/dotnet"
+          - script: |
+              curl -fsSL https://get.pulumi.com | sh
+              echo "##vso[task.prependpath]$HOME/.pulumi/bin"
+              export PATH=$PATH:$HOME/.pulumi/bin
+            displayName: "Setup Pulumi"
+          - script: |
+              export PATH=$PATH:$HOME/.pulumi/bin
+              pulumi login
+            env:
+              PULUMI_ACCESS_TOKEN: $(pulumiAccessToken)
+            displayName: "Login to Pulumi"
+
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: $(ado.azureServiceConnection)
+              scriptType: "bash"
+              scriptLocation: "inlineScript"
+              inlineScript: |
+                pulumi up --stack $(environment) --yes
+              workingDirectory: infra/pulumi/Blazor.Infra.Pulumi
+            displayName: Deploy Infrastructure
+
+
+  - stage: Deploy
+    displayName: "Deploy Blazor App"
+    dependsOn:
+      - Infrastructure
+      - BuildBlazorApp
+    jobs:
+      - job: DeployBlazorApp
+        displayName: "Deploy Blazor App"
+        steps:
+          - script: |
+              echo "Deploying Blazor App to Static Web Apps"
+            displayName: "Deploy Blazor App"
+          # Download the published Blazor app artifact
+          - download: current
+            artifact: BlazorApp
+            target: "$(Pipeline.Workspace)/BlazorApp"
+            displayName: Download Blazor App Artifact
+          # List the contents of the downloaded artifact
+          - script: |
+              echo "Contents of the downloaded artifact:"
+              ls -R $(Pipeline.Workspace)/BlazorApp
+            displayName: "List Artifact Contents"
