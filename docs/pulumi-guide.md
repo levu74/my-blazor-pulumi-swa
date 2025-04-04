@@ -51,11 +51,16 @@
   pulumi preview
   ```
 
-**Deploy changes to the current stack:**
+**Deploy changes to the current stack or specified stack:**
 
   ```bash
   pulumi up
   ```
+
+  ```bash
+  pulumi up --stack <stack-name>
+  ```
+
 
 
 ## Destroying Resources
