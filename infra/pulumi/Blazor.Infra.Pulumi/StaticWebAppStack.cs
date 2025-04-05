@@ -74,10 +74,10 @@ namespace Blazor.Infra.Pulumi
                 ResourceGroupName = resourceGroup.Name,
                 VaultName = keyVaultName,
 
-
                 Properties = new Az.KeyVault.Inputs.VaultPropertiesArgs
                 {
-                    EnableSoftDelete = true,
+                    EnablePurgeProtection = false,
+                    EnableSoftDelete = false,
                     EnableRbacAuthorization = true,
                     Sku = new Az.KeyVault.Inputs.SkuArgs
                     {
