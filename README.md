@@ -24,6 +24,10 @@ The diagram shows a complete deployment pipeline with the following components:
 5. During deployment, the pipeline retrieves the Static Web App deployment token from Azure Key Vault
 6. The pipeline uses this token to deploy the static content to Azure Static Web App
 
+### Security considerations
+
+To maintain robust security practices, the Static Web App deployment token is securely stored in Azure Key Vault rather than being hardcoded in pipeline files. During the deployment process, Azure Pipelines retrieves this token directly from Key Vault, ensuring sensitive credentials remain protected and follow security best practices for secret management throughout the CI/CD workflow.
+
 
 ## Development
 
