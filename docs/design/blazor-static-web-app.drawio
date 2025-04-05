@@ -1,0 +1,86 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+  <diagram name="Page-1" id="BQQCYj6RR27ow1okEeid">
+    <mxGraphModel dx="2286" dy="1095" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-2" style="edgeStyle=none;curved=1;rounded=0;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=16;startSize=14;endArrow=open;endSize=14;sourcePerimeterSpacing=8;targetPerimeterSpacing=8;dashed=1;" edge="1" parent="1" source="uvcUBH-O4ucxrxiohWe9-2" target="LsDsEIxDd0EDCtjFqukM-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-13" value="Store resource state" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" vertex="1" connectable="0" parent="LsDsEIxDd0EDCtjFqukM-2">
+          <mxGeometry x="-0.2762" y="2" relative="1" as="geometry">
+            <mxPoint x="92" y="9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-7" style="edgeStyle=none;curved=1;rounded=0;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=16;startSize=14;endArrow=open;endSize=14;sourcePerimeterSpacing=8;targetPerimeterSpacing=8;" edge="1" parent="1" source="uvcUBH-O4ucxrxiohWe9-2" target="uvcUBH-O4ucxrxiohWe9-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-11" value="Setup Infra&lt;br&gt;and publish website" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" vertex="1" connectable="0" parent="LsDsEIxDd0EDCtjFqukM-7">
+          <mxGeometry x="-0.2131" y="1" relative="1" as="geometry">
+            <mxPoint x="-3" y="-22" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uvcUBH-O4ucxrxiohWe9-2" value="" style="image;sketch=1;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/Azure_Pipelines.svg;curveFitting=1;jiggle=2;" parent="1" vertex="1">
+          <mxGeometry x="400" y="210" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="uvcUBH-O4ucxrxiohWe9-4" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.weblogos.github;" parent="1" vertex="1">
+          <mxGeometry x="181" y="203.5" width="65" height="63" as="geometry" />
+        </mxCell>
+        <mxCell id="uvcUBH-O4ucxrxiohWe9-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="1" source="uvcUBH-O4ucxrxiohWe9-5" target="uvcUBH-O4ucxrxiohWe9-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-4" value="push changes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" vertex="1" connectable="0" parent="uvcUBH-O4ucxrxiohWe9-6">
+          <mxGeometry x="-0.2993" y="2" relative="1" as="geometry">
+            <mxPoint x="19" y="-12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uvcUBH-O4ucxrxiohWe9-5" value="" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.source_code;shadow=0;" parent="1" vertex="1">
+          <mxGeometry x="-30" y="196" width="57" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="uvcUBH-O4ucxrxiohWe9-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;sketch=1;curveFitting=1;jiggle=2;" parent="1" source="uvcUBH-O4ucxrxiohWe9-4" target="uvcUBH-O4ucxrxiohWe9-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-5" value="trigger&lt;br&gt;Azure Pipelines" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" vertex="1" connectable="0" parent="uvcUBH-O4ucxrxiohWe9-7">
+          <mxGeometry x="-0.2296" y="3" relative="1" as="geometry">
+            <mxPoint x="10" y="-24" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-1" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.pulumi.com/logos/brand/logo-on-white.svg;" vertex="1" parent="1">
+          <mxGeometry x="327.5" y="381" width="195" height="48.63" as="geometry" />
+        </mxCell>
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-17" style="edgeStyle=none;curved=1;rounded=0;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=16;startSize=14;endArrow=open;endSize=14;sourcePerimeterSpacing=8;targetPerimeterSpacing=8;dashed=1;" edge="1" parent="1" source="LsDsEIxDd0EDCtjFqukM-14" target="uvcUBH-O4ucxrxiohWe9-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-18" value="Azure Identity for CI" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" vertex="1" connectable="0" parent="LsDsEIxDd0EDCtjFqukM-17">
+          <mxGeometry x="-0.2285" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-14" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/identity/Entra_Managed_Identities.svg;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" vertex="1" parent="1">
+          <mxGeometry x="391" y="31" width="68" height="60.440000000000005" as="geometry" />
+        </mxCell>
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-20" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="689" y="103" width="260" height="331" as="geometry" />
+        </mxCell>
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-6" value="" style="group;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" connectable="0" parent="LsDsEIxDd0EDCtjFqukM-20">
+          <mxGeometry width="260" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="uvcUBH-O4ucxrxiohWe9-8" value="" style="rounded=0;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="LsDsEIxDd0EDCtjFqukM-6" vertex="1">
+          <mxGeometry width="260" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="uvcUBH-O4ucxrxiohWe9-1" value="Static Web App" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/preview/Static_Apps.svg;sketch=1;curveFitting=1;jiggle=2;" parent="LsDsEIxDd0EDCtjFqukM-6" vertex="1">
+          <mxGeometry x="96" y="49" width="68" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="uvcUBH-O4ucxrxiohWe9-3" value="Key Vault" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/security/Key_Vaults.svg;sketch=1;curveFitting=1;jiggle=2;" parent="LsDsEIxDd0EDCtjFqukM-6" vertex="1">
+          <mxGeometry x="96" y="155" width="68" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-21" value="" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/ResourceGroup.svg;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" vertex="1" parent="LsDsEIxDd0EDCtjFqukM-6">
+          <mxGeometry x="11" y="11" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="LsDsEIxDd0EDCtjFqukM-19" value="Deployment stack&lt;br&gt;(Azure Native)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=20;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;" vertex="1" parent="LsDsEIxDd0EDCtjFqukM-20">
+          <mxGeometry x="34.5" y="271" width="184" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
