@@ -76,7 +76,7 @@ namespace Blazor.Infra.Pulumi
 
                 Properties = new Az.KeyVault.Inputs.VaultPropertiesArgs
                 {
-                    EnablePurgeProtection = false,
+                    EnablePurgeProtection = true,
                     EnableSoftDelete = false,
                     EnableRbacAuthorization = true,
                     Sku = new Az.KeyVault.Inputs.SkuArgs
