@@ -8,7 +8,7 @@ trigger:
       - "**/*"
     exclude:
       - README.md
-      - 'docs/**'
+      - "docs/**"
 pr: none
 
 variables:
@@ -73,13 +73,22 @@ stages:
               cwd: infra/pulumi/Blazor.Infra.Pulumi
               stack: $(environment)
               args: "--yes"
+          - script: |
+              pulumi stack select $(environment)
+              KEYVAULT_NAME=$(pulumi stack output keyVaultName)
+              echo "##vso[task.setvariable variable=keyVaultName;isOutput=true]$KEYVAULT_NAME"
+            displayName: "Set stack outputs as variables"
+            workingDirectory: infra/pulumi/Blazor.Infra.Pulumi
+            name: "setOutputs"
 
   - stage: Deploy
     displayName: "Deploy Blazor App"
     dependsOn:
       - Infrastructure
       - BuildBlazorApp
-    condition: and(ne(variables['ado.azureStaticWebAppToken'], ''), succeeded('BuildBlazorApp'))
+    condition: and(succeeded('Infrastructure'), succeeded('BuildBlazorApp'))
+    variables:
+      keyVaultName: $[ stageDependencies.Infrastructure.PulumiUp.outputs['setOutputs.keyVaultName'] ]
     jobs:
       - job: DeployBlazorApp
         displayName: "Deploy Blazor App"
@@ -92,13 +101,20 @@ stages:
           - download: current
             artifact: BlazorApp
             displayName: "Download Blazor App Artifact"
+          - task: AzureKeyVault@2
+            displayName: "Get secrets from Key Vault"
+            inputs:
+              azureSubscription: $(ado.azureServiceConnection)
+              KeyVaultName: $(keyVaultName)
+              SecretsFilter: "swaDeploymentToken"
+              RunAsPreJob: true
 
           # Check if Docker is available on the agent
           - task: Bash@3
             displayName: "Check for Docker support"
             name: checkDocker
             inputs:
-              targetType: 'inline'
+              targetType: "inline"
               script: |
                 if command -v docker &> /dev/null; then
                   echo "##vso[task.setvariable variable=dockerAvailable]true"
@@ -111,19 +127,22 @@ stages:
             displayName: "Deploy to Static Web Apps (Docker method)"
             condition: eq(variables['dockerAvailable'], 'true')
             inputs:
-              azure_static_web_apps_api_token: $(ado.azureStaticWebAppToken)
+              azure_static_web_apps_api_token: $(swaDeploymentToken)
               output_location: "$(Pipeline.Workspace)/BlazorApp/wwwroot"
               skip_app_build: true
 
           # Alternative deployment method using SWA CLI (for agents without Docker)
           - task: NodeTool@0
-            displayName: 'Install Node.js'
+            displayName: "Install Node.js"
             condition: eq(variables['dockerAvailable'], 'false')
             inputs:
-              versionSpec: '20.x'
+              versionSpec: "20.x"
 
           - script: |
+              set -e
               npm install -g @azure/static-web-apps-cli
-              swa deploy --deployment-token $(ado.azureStaticWebAppToken) --env production "$(Pipeline.Workspace)/BlazorApp/wwwroot"
+              swa deploy --deployment-token $deploymentToken --env production "$(Pipeline.Workspace)/BlazorApp/wwwroot"
+            env:
+              deploymentToken: $(swaDeploymentToken)
             displayName: "Deploy to Static Web Apps (SWA CLI method)"
             condition: eq(variables['dockerAvailable'], 'false')

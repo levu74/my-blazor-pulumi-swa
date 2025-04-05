@@ -72,5 +72,5 @@
     // Azure Static Web App CLI
     4280
   ],
-  "postCreateCommand": "/bin/bash .devcontainer/post-create.sh && /bin/bash .devcontainer/scripts/install-startship.sh"
+  "postCreateCommand": "/bin/bash .devcontainer/post-create.sh && /bin/bash .devcontainer/scripts/install-starship.sh"
 }
