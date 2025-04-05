@@ -130,3 +130,9 @@ This project uses Azure Pipelines for continuous integration and continuous depl
 The pipeline uses several variables to manage the deployment process. These variables are defined in the Variable Groups in Azure DevOps. The following variables are used in the pipeline:
 
 ![Azure DevOps Variables](docs/images/azure-pipeline-variables.png)
+
+## Browse to website
+
+After the deployment is complete, you can browse to the static web app using the URL provided in the Azure portal or in the output of the `pulumi up` command.
+
+![Website](docs/images/website.png)
